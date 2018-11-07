@@ -2,7 +2,7 @@
 - name: Save the running configuration of the BIG-IP
   bigip_config:
     save: yes
-    server: ab-f5-asm01.nonprod.banka.hci
+    server: "{{ ansible_host }}"
     password: admin
     user: admin
     validate_certs: no

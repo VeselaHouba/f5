@@ -1,2 +1,6 @@
 ---
-# handlers file for f5
+- name: Save config
+  bigip_config:
+    provider: "{{ f5_provider }}"
+    save: yes
+  delegate_to: localhost

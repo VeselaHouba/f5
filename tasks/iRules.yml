@@ -1,0 +1,10 @@
+---
+- name: Deploy iRules
+  bigip_irule:
+    provider: "{{ f5_provider }}"
+    module: ltm
+    src: "{{ role_path }}/files/iRules/{{ item }}.tcl"
+    name: "{{ item }}"
+  with_items: "{{ f5_iRules_list }}"
+  notify: Save config
+  delegate_to: localhost

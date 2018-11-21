@@ -1,9 +1,3 @@
 ---
-- name: Save the running configuration of the BIG-IP
-  bigip_config:
-    save: yes
-    server: "{{ ansible_host }}"
-    password: admin
-    user: admin
-    validate_certs: no
-  delegate_to: localhost
+- name: Deploy iRules
+  include_tasks: iRules.yml

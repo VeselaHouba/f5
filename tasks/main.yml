@@ -1,3 +1,7 @@
 ---
 - name: Deploy iRules
   include_tasks: iRules.yml
+
+- name: Deploy data groups
+  include_tasks: data_groups.yml
+  tags: data-groups

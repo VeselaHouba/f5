@@ -3,8 +3,9 @@
   bigip_irule:
     provider: "{{ f5_provider }}"
     module: ltm
-    src: "{{ role_path }}/files/iRules/{{ item }}.tcl"
-    name: "{{ item }}"
+    src: "{{ item.file|default(role_path+'/files/iRules/'+item.name+'.tcl') }}"
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
   with_items: "{{ f5_iRules_list }}"
   notify: Save config
   delegate_to: localhost

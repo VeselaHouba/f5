@@ -1,0 +1,12 @@
+---
+- name: Deploy data groups
+  bigip_data_group:
+    provider: "{{ f5_provider }}"
+    name: "{{ item.name }}"
+    records_src: "{{ item.file|default(role_path+'/files/data_groups/'+item.name+'.txt') }}"
+    type: "{{ item.type|default('string') }}"
+    internal: "{{ item.internal | default(false) }}"
+  with_items: "{{ f5_data_group_list }}"
+  notify: Save config
+  delegate_to: localhost
+  tags: data-groups

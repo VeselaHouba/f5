@@ -1,0 +1,44 @@
+---
+- name: Create pools
+  bigip_pool:
+    provider: "{{ f5_provider }}"
+    name: "{{ item.name }}"
+    lb_method: "{{ item.lb_method | default('least-connections-member') }}"
+    monitor_type: "{{ item.monitor_type | default(omit) }}"
+    monitors: "{{ item.monitors | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+  delegate_to: localhost
+  with_items: "{{ f5_pools }}"
+  notify: Save config
+  tags: ltm
+
+- name: Add pool members
+  bigip_pool_member:
+    provider: "{{ f5_provider }}"
+    pool: "{{ item.pool }}"
+    host: "{{ item.host }}"
+    port: "{{ item.port }}"
+    state: "{{ item.state | default('present') }}"
+  delegate_to: localhost
+  with_items: "{{ f5_pool_members }}"
+  notify: Save config
+  tags: ltm
+
+- name: Add virtual servers
+  bigip_virtual_server:
+    provider: "{{ f5_provider }}"
+    name: "{{ item.name }}"
+    destination: "{{ item.destination }}"
+    port: "{{ item.port }}"
+    pool: "{{ item.pool | default('') }}"
+    snat: "{{ item.snat | default('Automap') }}"
+    description: "{{ item.description | default (ansible_managed) }}"
+    profiles: "{{ item.profiles }}"
+    policies: "{{ item.policies | default(omit) }}"
+    enabled_vlans: "{{ item.enabled_vlans | default('all') }}"
+    state: "{{ item.state | default('present') }}"
+    irules: "{{ item.irules | default(omit) }}"
+  with_items: "{{ f5_virtual_servers }}"
+  delegate_to: localhost
+  notify: Save config
+  tags: ltm

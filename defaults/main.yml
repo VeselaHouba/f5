@@ -1,3 +1,10 @@
 ---
 f5_provider: {}
 f5_iRules_list: {}
+f5_asm_policies_deploy_list: {}
+# - name: policy_1
+#   file: ASM_policies/Common_policy_1.xml
+#   active: true
+f5_asm_policies_fetch_list: {}
+#  - name: ib.airbank.cz_v01
+#    dir: ../files/ASM_policies/

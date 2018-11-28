@@ -1,0 +1,10 @@
+---
+- name: Export ASM policy in XML format
+  bigip_asm_policy_fetch:
+    provider: "{{ f5_provider }}"
+    name: "{{ item.name }}"
+    file: "{{ item.file|default(item.name + '.xml') }}"
+    dest: "{{ item.dir }}"
+  with_items: "{{ f5_asm_policies_fetch_list }}"
+  delegate_to: localhost
+  tags: fetch_asm

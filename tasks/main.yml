@@ -1,9 +1,11 @@
 ---
 - name: Deploy iRules
   include_tasks: iRules.yml
+  when: f5_iRules_list
 
 - name: Deploy data groups
   include_tasks: data_groups.yml
+  when: f5_data_group_list
   tags: data-groups
 
 - name: Fetch ASM policies
@@ -14,6 +16,14 @@
 - name: Deploy ASM policies
   include_tasks: asm_policies_deploy.yml
   when: f5_asm_policies_deploy_list
+
+- name: Deploy cetificates
+  include_tasks: certificates.yml
+  vars:
+    cert: "{{ item }}"
+  with_items: "{{ f5_certificates_list }}"
+  tags: certificates
+  no_log: true
 
 - name: Deploy profiles
   include_tasks: profiles.yml

@@ -13,3 +13,4 @@ f5_asm_policies_fetch_list: {}
 f5_pools: {}
 f5_pool_members: {}
 f5_virtual_servers: {}
+f5_certificates_list: {}

@@ -15,6 +15,14 @@
   include_tasks: asm_policies_deploy.yml
   when: f5_asm_policies_deploy_list
 
+- name: Deploy http profiles
+  include_tasks: profiles.yml
+  vars:
+    profile: "{{ item }}"
+  with_items: "{{ f5_profiles_list }}"
+  tags: profiles
+  no_log: true
+
 - name: Create pools, virtual hosts
   include_tasks: ltm.yml
   when: ( f5_pools or f5_pool_members )

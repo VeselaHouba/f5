@@ -15,7 +15,7 @@
   include_tasks: asm_policies_deploy.yml
   when: f5_asm_policies_deploy_list
 
-- name: Deploy http profiles
+- name: Deploy profiles
   include_tasks: profiles.yml
   vars:
     profile: "{{ item }}"

@@ -1,6 +1,8 @@
 ---
 f5_provider: {}
 f5_iRules_list: {}
+f5_data_group_list: {}
+f5_profiles_list: {}
 f5_asm_policies_deploy_list: {}
 # - name: policy_1
 #   file: ASM_policies/Common_policy_1.xml

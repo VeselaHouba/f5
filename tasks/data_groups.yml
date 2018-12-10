@@ -3,8 +3,9 @@
   bigip_data_group:
     provider: "{{ f5_provider }}"
     name: "{{ item.name }}"
-    records_src: "{{ item.file|default(role_path+'/files/data_groups/'+item.name+'.txt') }}"
-    type: "{{ item.type|default('string') }}"
+    records_src: "{{ item.file|default(omit) }}"
+    records: "{{ item.records|default(omit) }}"
+    type: "{{ item.type|default(omit) }}"
     internal: "{{ item.internal | default(false) }}"
   with_items: "{{ f5_data_group_list }}"
   notify: Save config

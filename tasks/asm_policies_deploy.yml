@@ -1,10 +1,11 @@
 ---
-- name: Import and activate ASM policy
-  bigip_asm_policy:
+- name: Import ASM policy
+  bigip_asm_policy_import:
     provider: "{{ f5_provider }}"
     name: "{{ item.name }}"
-    file: "{{ item.file }}"
-    active: "{{ item.active | default(true) }}"
+    source: "{{ item.file }}"
+    force: "{{ item.force | default(false) }}"
   with_items: "{{ f5_asm_policies_deploy_list }}"
   notify: Save config
   delegate_to: localhost
+  tags: f5_asm

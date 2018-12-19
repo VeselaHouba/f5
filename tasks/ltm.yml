@@ -38,6 +38,8 @@
     enabled_vlans: "{{ item.enabled_vlans | default('all') }}"
     state: "{{ item.state | default('present') }}"
     irules: "{{ item.irules | default(omit) }}"
+    default_persistence_profile: "{{ item.default_persistence_profile|default(omit) }}"
+    fallback_persistence_profile: "{{ item.fallback_persistence_profile|default(omit) }}"
   with_items: "{{ f5_virtual_servers }}"
   delegate_to: localhost
   notify: Save config

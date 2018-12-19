@@ -7,4 +7,4 @@
     dest: "{{ item.dir }}"
   with_items: "{{ f5_asm_policies_fetch_list }}"
   delegate_to: localhost
-  tags: fetch_asm
+  tags: f5_asm

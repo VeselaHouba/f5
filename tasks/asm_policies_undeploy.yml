@@ -1,0 +1,27 @@
+---
+- name: Delete LTM policy for ASM policy {{ policy.name }}
+  bigip_policy:
+    provider: "{{ f5_provider }}"
+    name: "asm_l7_policy_{{ policy.name }}"
+    state: absent
+  notify: Save config
+  delegate_to: localhost
+  tags: f5_asm
+
+- name: Deactivate ASM policy {{ policy.name }}
+  bigip_asm_policy_manage:
+    provider: "{{ f5_provider }}"
+    name: "{{ policy.name }}"
+    active: false
+  notify: Save config
+  delegate_to: localhost
+  tags: f5_asm
+
+- name: Remove ASM policy {{ policy.name }}
+  bigip_asm_policy_manage:
+    provider: "{{ f5_provider }}"
+    name: "{{ policy.name }}"
+    state: absent
+  notify: Save config
+  delegate_to: localhost
+  tags: f5_asm

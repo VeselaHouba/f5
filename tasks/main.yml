@@ -15,7 +15,10 @@
 
 - name: Deploy ASM policies
   include_tasks: asm_policies_deploy.yml
-  when: f5_asm_policies_deploy_list
+  vars:
+    policy: "{{ item }}"
+  with_items: "{{ f5_asm_policies_deploy_list }}"
+  when: item.state | default('present') == 'present'
   tags: f5_asm
 
 - name: Deploy cetificates
@@ -38,3 +41,11 @@
   include_tasks: ltm.yml
   when: ( f5_pools or f5_pool_members )
   tags: ltm
+
+- name: Undeploy ASM policies
+  include_tasks: asm_policies_undeploy.yml
+  vars:
+    policy: "{{ item }}"
+  with_items: "{{ f5_asm_policies_deploy_list }}"
+  when: item.state | default('present') == 'absent'
+  tags: f5_asm

@@ -40,6 +40,7 @@
     irules: "{{ item.irules | default(omit) }}"
     default_persistence_profile: "{{ item.default_persistence_profile|default(omit) }}"
     fallback_persistence_profile: "{{ item.fallback_persistence_profile|default(omit) }}"
+    security_log_profiles: "{{ item.security_log_profiles | default(omit) }}"
   with_items: "{{ f5_virtual_servers }}"
   delegate_to: localhost
   notify: Save config

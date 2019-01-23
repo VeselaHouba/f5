@@ -1,4 +1,9 @@
 ---
+- name: Manage users
+  include_tasks: users.yml
+  when: f5_users
+  tags: f5_users
+
 - name: Deploy iRules
   include_tasks: iRules.yml
   when: f5_iRules_list

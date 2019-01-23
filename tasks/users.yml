@@ -1,0 +1,14 @@
+---
+- name: Add / remove users
+  bigip_user:
+    username_credential: "{{ item.username }}"
+    password_credential: "{{ item.password }}"
+    full_name: "{{ item.full_name }}"
+    update_password: "{{ item.update_password | default('always') }}"
+    partition_access: "{{ item.partition_access }}"
+    state: "{{ item.state | default('present') }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  with_items: "{{ f5_users }}"
+  no_log: true
+  tags: f5_users

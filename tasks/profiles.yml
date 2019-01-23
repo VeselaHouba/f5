@@ -3,17 +3,17 @@
   set_fact:
     profile_merged: {}
     profile_cleaned: {}
-  tags: profiles
+  tags: f5_profiles
 
 - name: Add provider info to profile
   set_fact:
     profile_merged: "{{ profile | combine({'provider': f5_provider }) }}"
-  tags: profiles
+  tags: f5_profiles
 
 - name: Exctract type from profile
   set_fact:
     profile_type: "{{ profile_merged.type }}"
-  tags: profiles
+  tags: f5_profiles
 
 # Loop through whole array and recreate new one without specific key
 - name: Remove type from profile
@@ -23,7 +23,7 @@
       combine({dictitem.key: dictitem.value}) }}"
   when: dictitem.key not in ['type']
   with_dict: "{{ profile_merged }}"
-  tags: profiles
+  tags: f5_profiles
   loop_control:
     loop_var: dictitem
   # hide passwords
@@ -32,18 +32,18 @@
 # - name: Debug - remove after testing
 #   debug:
 #     var: profile_cleaned
-#   tags: profiles
+#   tags: f5_profiles
 
 - name: Deploy http profiles
   bigip_profile_http: "{{ profile_cleaned }}"
   notify: Save config
   delegate_to: localhost
-  tags: profiles
+  tags: f5_profiles
   when: profile_type == 'http'
 
 - name: Deploy client ssl profiles
   bigip_profile_client_ssl: "{{ profile_cleaned }}"
   notify: Save config
   delegate_to: localhost
-  tags: profiles
+  tags: f5_profiles
   when: profile_type == 'client_ssl'

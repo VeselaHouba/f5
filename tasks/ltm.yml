@@ -10,7 +10,7 @@
   delegate_to: localhost
   with_items: "{{ f5_pools }}"
   notify: Save config
-  tags: ltm
+  tags: f5_ltm
 
 - name: Add pool members
   bigip_pool_member:
@@ -22,7 +22,7 @@
   delegate_to: localhost
   with_items: "{{ f5_pool_members }}"
   notify: Save config
-  tags: ltm
+  tags: f5_ltm
 
 - name: Add virtual servers
   bigip_virtual_server:
@@ -44,4 +44,4 @@
   with_items: "{{ f5_virtual_servers }}"
   delegate_to: localhost
   notify: Save config
-  tags: ltm
+  tags: f5_ltm

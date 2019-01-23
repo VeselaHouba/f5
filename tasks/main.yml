@@ -2,11 +2,14 @@
 - name: Deploy iRules
   include_tasks: iRules.yml
   when: f5_iRules_list
+  tags: f5_irules
 
 - name: Deploy data groups
   include_tasks: data_groups.yml
   when: f5_data_group_list
-  tags: data-groups
+  tags:
+    - f5_data-groups
+    - f5_irules
 
 - name: Fetch ASM policies
   include_tasks: asm_policies_fetch.yml
@@ -26,7 +29,7 @@
   vars:
     cert: "{{ item }}"
   with_items: "{{ f5_certificates_list }}"
-  tags: certificates
+  tags: f5_certificates
   no_log: true
 
 - name: Deploy profiles
@@ -34,13 +37,13 @@
   vars:
     profile: "{{ item }}"
   with_items: "{{ f5_profiles_list }}"
-  tags: profiles
+  tags: f5_profiles
   no_log: true
 
 - name: Create pools, virtual hosts
   include_tasks: ltm.yml
   when: ( f5_pools or f5_pool_members )
-  tags: ltm
+  tags: f5_ltm
 
 - name: Undeploy ASM policies
   include_tasks: asm_policies_undeploy.yml

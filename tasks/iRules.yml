@@ -9,3 +9,4 @@
   with_items: "{{ f5_iRules_list }}"
   notify: Save config
   delegate_to: localhost
+  tags: f5_irules

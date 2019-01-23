@@ -10,4 +10,6 @@
   with_items: "{{ f5_data_group_list }}"
   notify: Save config
   delegate_to: localhost
-  tags: data-groups
+  tags:
+    - f5_data-groups
+    - f5_irules

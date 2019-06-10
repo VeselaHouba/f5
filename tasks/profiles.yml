@@ -41,9 +41,23 @@
   tags: f5_profiles
   when: profile_type == 'http'
 
+- name: Deploy http compression profiles
+  bigip_profile_http_compression: "{{ profile_cleaned }}"
+  notify: Save config
+  delegate_to: localhost
+  tags: f5_profiles
+  when: profile_type == 'http_compression'
+
 - name: Deploy client ssl profiles
   bigip_profile_client_ssl: "{{ profile_cleaned }}"
   notify: Save config
   delegate_to: localhost
   tags: f5_profiles
   when: profile_type == 'client_ssl'
+
+- name: Deploy persistence cookie profile
+  bigip_profile_persistence_cookie: "{{ profile_cleaned }}"
+  notify: Save config
+  delegate_to: localhost
+  tags: f5_profiles
+  when: profile_type == 'persistence_cookie'

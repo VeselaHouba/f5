@@ -1,24 +1,32 @@
 ---
 - name: Manage users
   include_tasks: users.yml
-  when: f5_users
+  when:
+    - f5_users is defined
+    - f5_users | length > 0
   tags: f5_users
 
 - name: Deploy iRules
   include_tasks: iRules.yml
-  when: f5_iRules_list
+  when:
+    - f5_iRules_list is defined
+    - f5_iRules_list | length > 0
   tags: f5_irules
 
 - name: Deploy data groups
   include_tasks: data_groups.yml
-  when: f5_data_group_list
+  when:
+    - f5_data_group_list is defined
+    - f5_data_group_list | length > 0
   tags:
     - f5_data-groups
     - f5_irules
 
 - name: Fetch ASM policies
   include_tasks: asm_policies_fetch.yml
-  when: f5_asm_policies_fetch_list
+  when:
+    - f5_asm_policies_fetch_list is defined
+    - f5_asm_policies_fetch_list | length > 0
   tags: f5_asm
 
 - name: Deploy ASM policies
@@ -45,9 +53,11 @@
   tags: f5_profiles
   no_log: true
 
-- name: Create pools, virtual hosts
+- name: Configure pools, members, virtual servers
   include_tasks: ltm.yml
-  when: ( f5_pools or f5_pool_members )
+  when: ( (f5_pools is defined) and (f5_pools | length > 0) )
+    or ( (f5_pool_members is defined) and (f5_pool_members | length > 0) )
+    or ( (f5_virtual_servers is defined) and (f5_virtual_servers | length > 0) )
   tags: f5_ltm
 
 - name: Undeploy ASM policies

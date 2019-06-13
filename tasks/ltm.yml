@@ -18,7 +18,7 @@
     pool: "{{ item.pool }}"
     host: "{{ item.host }}"
     port: "{{ item.port }}"
-    name: "{{ item.name }}"
+    name: "{{ item.name|default(omit) }}"
     state: "{{ item.state | default('present') }}"
   delegate_to: localhost
   with_items: "{{ f5_pool_members }}"

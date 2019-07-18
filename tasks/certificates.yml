@@ -1,5 +1,5 @@
 ---
-- name: Import PEM certificate
+- name: "Import PEM certificate {{ cert.name }}"
   bigip_ssl_certificate:
     provider: "{{ f5_provider }}"
     name: "{{ cert.name }}"
@@ -7,8 +7,9 @@
     state: "{{ cert.state | default('present') }}"
   delegate_to: localhost
   when: cert.certfile is defined
+  tags: f5_certificates
 
-- name: Import key
+- name: "Import key for {{ cert.name }}"
   bigip_ssl_key:
     provider: "{{ f5_provider }}"
     name: "{{ cert.name }}"
@@ -16,3 +17,4 @@
     state: "{{ cert.state | default('present') }}"
   delegate_to: localhost
   when: cert.keyfile is defined
+  tags: f5_certificates

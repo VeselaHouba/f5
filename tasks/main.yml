@@ -6,6 +6,16 @@
     - f5_users | length > 0
   tags: f5_users
 
+- name: Manage f5_partitions
+  bigip_partition:
+    name: "{{ item.name }}"
+    description: "{{ item.description | default('omit') }}"
+    state: "{{ item.state | default('present') }}"
+    provider: "{{ f5_provider }}"
+  with_items: "{{ f5_partitions }}"
+  delegate_to: localhost
+  tags: f5_partitions
+
 - name: Deploy iRules
   include_tasks: iRules.yml
   when:

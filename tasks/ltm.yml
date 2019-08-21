@@ -7,6 +7,7 @@
     monitor_type: "{{ item.monitor_type | default(omit) }}"
     monitors: "{{ item.monitors | default(omit) }}"
     state: "{{ item.state | default('present') }}"
+    partition: "{{ item.partition | default(omit) }}"
   delegate_to: localhost
   with_items: "{{ f5_pools }}"
   notify: Save config
@@ -20,6 +21,7 @@
     port: "{{ item.port }}"
     name: "{{ item.name|default(omit) }}"
     state: "{{ item.state | default('present') }}"
+    partition: "{{ item.partition | default(omit) }}"
   delegate_to: localhost
   with_items: "{{ f5_pool_members }}"
   notify: Save config
@@ -38,6 +40,7 @@
     policies: "{{ item.policies | default(omit) }}"
     enabled_vlans: "{{ item.enabled_vlans | default('all') }}"
     state: "{{ item.state | default('present') }}"
+    partition: "{{ item.partition | default(omit) }}"
     irules: "{{ item.irules | default(omit) }}"
     default_persistence_profile: "{{ item.default_persistence_profile|default(omit) }}"
     fallback_persistence_profile: "{{ item.fallback_persistence_profile|default(omit) }}"

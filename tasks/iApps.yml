@@ -1,0 +1,30 @@
+---
+- name: Deploy the iApp templates
+  bigip_iapp_template:
+    content: "{{ lookup('template', item.path) }}"
+    provider: "{{ f5_provider }}"
+  with_items: "{{ f5_iApps_templates }}"
+  delegate_to: localhost
+  tags: f5_iapps
+  when: (item.state | default('present')) == 'present'
+
+- name: (un)Deploy iApp services based on templates
+  bigip_iapp_service:
+    name: "{{ item.name }}"
+    template: "{{ item.template }}"
+    parameters: "{{ item.parameters | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+    provider: "{{ f5_provider }}"
+  with_items: "{{ f5_iApps_services }}"
+  delegate_to: localhost
+  tags: f5_iapps
+
+- name: Undeploy the iApp templates marked to uninstall
+  bigip_iapp_template:
+    content: "{{ lookup('template', item.path) }}"
+    provider: "{{ f5_provider }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ f5_iApps_templates }}"
+  when: (item.state | default('present')) == 'absent'
+  delegate_to: localhost
+  tags: f5_iapps

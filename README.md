@@ -7,7 +7,8 @@ Requirements
 ------------
 
 # How to make it work
-If you don't want to mess with your default env, install everything in virtualenv
+If you don't want to mess with your default env, install everything in virtualenv. It might be good idea to actually wrap everything in docker.
+
 ```
 pip install vitualenv
 virtualenv ansible-dev
@@ -40,6 +41,38 @@ Or use one of pre-defined iRules inside this role `files/iRules/` and reference 
 f5_iRules_list:
   - { name: irule_example }
 ```
+
+### iApps
+
+Upload templates and create instances (services) of iApps. You have to check insides of the iApp template to check variables names. (You're basically bypassing the visual part of iApp)
+
+Following is example of iApp to periodically update CRL from public site.
+
+```yaml
+f5_iApps_templates:
+  - path: ../files/iApps/automated_crl_update.tmpl
+    state: present
+
+f5_iApps_services:
+  - name: update_crl_from_ICA
+    template: automated_crl_update
+    state: present
+    parameters:
+      variables:
+        - name: "crl_configuration__name"
+          value: "ICA_crl"
+        - name: crl_configuration__interval
+          value: 3600
+      tables:
+        - name: "crl_configuration__url_list"
+          columnNames:
+            - url
+          rows:
+            - row:
+                - http://qcrldp1.ica.cz/rca15_rsa.crl
+
+```
+
 
 ## Partitions:
 If you want to use specific partitions, then you have to define absolute paths to cross-partition resources. Only resources in the same partition are searched without prefix.

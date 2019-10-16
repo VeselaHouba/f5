@@ -16,13 +16,6 @@
   delegate_to: localhost
   tags: f5_partitions
 
-- name: Deploy iRules
-  include_tasks: iRules.yml
-  when:
-    - f5_iRules_list is defined
-    - f5_iRules_list | length > 0
-  tags: f5_irules
-
 - name: Deploy data groups
   include_tasks: data_groups.yml
   when:
@@ -31,6 +24,13 @@
   tags:
     - f5_data-groups
     - f5_irules
+
+- name: Deploy iRules
+  include_tasks: iRules.yml
+  when:
+    - f5_iRules_list is defined
+    - f5_iRules_list | length > 0
+  tags: f5_irules
 
 - name: Fetch ASM policies
   include_tasks: asm_policies_fetch.yml

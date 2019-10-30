@@ -1,4 +1,20 @@
 ---
+- name: Create Monitors
+  bigip_monitor_http:
+    provider: "{{ f5_provider }}"
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+    send: "{{ item.send | default(omit) }}"
+    receive: "{{ item.receive | default(omit) }}"
+    interval: "{{ item.interval | default(omit) }}"
+    timeout: "{{ item.timeout | default(omit) }}"
+    parent: "{{ item.parent | default(omit) }}"
+    partition: "{{ item.partition | default(omit) }}"
+  delegate_to: localhost
+  with_items: "{{ f5_monitors_http }}"
+  notify: Save config
+  tags: f5_ltm
+
 - name: Create pools
   bigip_pool:
     provider: "{{ f5_provider }}"

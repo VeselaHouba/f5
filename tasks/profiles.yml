@@ -55,6 +55,13 @@
   tags: f5_profiles
   when: profile_type == 'client_ssl'
 
+- name: Deploy server ssl profiles
+  bigip_profile_server_ssl: "{{ profile_cleaned }}"
+  notify: Save config
+  delegate_to: localhost
+  tags: f5_profiles
+  when: profile_type == 'server_ssl'
+
 - name: Deploy persistence cookie profile
   bigip_profile_persistence_cookie: "{{ profile_cleaned }}"
   notify: Save config

@@ -12,6 +12,7 @@
     partition: "{{ item.partition | default(omit) }}"
   delegate_to: localhost
   with_items: "{{ f5_monitors_http }}"
+  when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   notify: Save config
   tags: f5_ltm
 
@@ -26,6 +27,7 @@
     partition: "{{ item.partition | default(omit) }}"
   delegate_to: localhost
   with_items: "{{ f5_pools }}"
+  when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   notify: Save config
   tags: f5_ltm
 
@@ -40,6 +42,7 @@
     partition: "{{ item.partition | default(omit) }}"
   delegate_to: localhost
   with_items: "{{ f5_pool_members }}"
+  when: ( f5_partial_deploy is not defined ) or ( item.pool in f5_partial_deploy )
   notify: Save config
   tags: f5_ltm
 
@@ -63,6 +66,7 @@
     fallback_persistence_profile: "{{ item.fallback_persistence_profile|default(omit) }}"
     security_log_profiles: "{{ item.security_log_profiles | default(omit) }}"
   with_items: "{{ f5_virtual_servers }}"
+  when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   delegate_to: localhost
   notify: Save config
   tags: f5_ltm

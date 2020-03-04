@@ -77,6 +77,7 @@ f5_iApps_services:
 ## Partitions:
 If you want to use specific partitions, then you have to define absolute paths to cross-partition resources. Only resources in the same partition are searched without prefix.
 
+```YAML
 f5_partitions:
   - name: test_part
     description: testing partition
@@ -100,7 +101,32 @@ f5_virtual_servers:
       - /Common/some_irule_in_common
       - some_irule_in_test_part
     partition: test_part
+```
 
+## Partial Deploy
+This feature was added to support ability to deploy only some parts of infrastructure. For example if you want to deploy only single virtual host, put it's name to `f5_partial_deploy` variable. Module will then skip all tasks except virtual host deploy. Any supported name can be used: iRule, username, pool name, profile, ...
+
+Examples:
+```bash
+# single virtual server
+ansible-playbook playbooks/deploy.yml -e "f5_partial_deploy=my_virtual_server"
+# multiple items
+ansible-playbook playbooks/deploy.yml -e "f5_partial_deploy=my_virtual_server,my_pool"
+```
+
+You can also add your variables to file and load it from command line
+```bash
+$ cat f5_partial_deploy.yml
+
+---
+f5_partial_deploy:
+  - my_pool
+  - my_virtual_server
+  - my_http_profile
+  - my_asm_profile
+
+ansible-playbook playbooks/deploy.yml -e @f5_partial_deploy.yml
+```
 
 
 License

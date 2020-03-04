@@ -10,5 +10,6 @@
     provider: "{{ f5_provider }}"
   delegate_to: localhost
   with_items: "{{ f5_users }}"
+  when: ( f5_partial_deploy is not defined ) or ( item.username in f5_partial_deploy )
   no_log: true
   tags: f5_users

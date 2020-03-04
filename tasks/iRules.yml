@@ -6,6 +6,7 @@
     src: "{{ item.file|default(role_path+'/files/iRules/'+item.name+'.tcl') }}"
     name: "{{ item.name }}"
     state: "{{ item.state | default('present') }}"
+    partition: "{{ item.partition | default(omit) }}"
   with_items: "{{ f5_iRules_list }}"
   notify: Save config
   delegate_to: localhost

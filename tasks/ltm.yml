@@ -47,6 +47,7 @@
   bigip_virtual_server:
     provider: "{{ f5_provider }}"
     name: "{{ item.name }}"
+    type: "{{ item.type | default(omit) }}"
     destination: "{{ item.destination | default(omit) }}"
     port: "{{ item.port | default(omit) }}"
     pool: "{{ item.pool | default('') }}"

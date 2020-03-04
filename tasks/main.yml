@@ -44,7 +44,9 @@
   vars:
     policy: "{{ item }}"
   with_items: "{{ f5_asm_policies_deploy_list }}"
-  when: item.state | default('present') == 'present'
+  when:
+    - item.state | default('present') == 'present'
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   tags: f5_asm
 
 - name: Deploy cetificates
@@ -52,6 +54,9 @@
   vars:
     cert: "{{ item }}"
   with_items: "{{ f5_certificates_list }}"
+  when:
+    - item.name is defined
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   tags: f5_certificates
   no_log: true
 
@@ -60,6 +65,9 @@
   vars:
     profile: "{{ item }}"
   with_items: "{{ f5_profiles_list }}"
+  when:
+    - item.name is defined
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   tags: f5_profiles
   no_log: true
 
@@ -82,5 +90,7 @@
   vars:
     policy: "{{ item }}"
   with_items: "{{ f5_asm_policies_deploy_list }}"
-  when: item.state | default('present') == 'absent'
+  when:
+    - item.state | default('present') == 'absent'
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   tags: f5_asm

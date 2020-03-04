@@ -8,6 +8,7 @@
     state: "{{ item.state | default('present') }}"
     partition: "{{ item.partition | default(omit) }}"
   with_items: "{{ f5_iRules_list }}"
+  when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   notify: Save config
   delegate_to: localhost
   tags: f5_irules

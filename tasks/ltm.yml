@@ -41,6 +41,7 @@
     port: "{{ item.port }}"
     name: "{{ item.name|default(omit) }}"
     state: "{{ item.state | default('present') }}"
+    priority_group: "{{ item.priority_group | default(omit) }}"
     partition: "{{ item.partition | default(omit) }}"
   delegate_to: localhost
   with_items: "{{ f5_pool_members }}"

@@ -16,6 +16,13 @@
   delegate_to: localhost
   tags: f5_partitions
 
+- name: Deploy routes
+  include_tasks: routes.yml
+  when:
+    - f5_routes_list is defined
+    - f5_routes_list | length > 0
+  tags: f5_routes
+
 - name: Deploy data groups
   include_tasks: data_groups.yml
   when:

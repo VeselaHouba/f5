@@ -1,0 +1,15 @@
+---
+- name: Create routes
+  bigip_static_route:
+    name: "{{ item.name }}"
+    destination : "{{ item.destination }}"
+    netmask : "{{ item.netmask }}"
+    gateway_address: "{{ item.gateway }}"  
+    partition: "{{ item.partition | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+    provider: "{{ f5_provider }}"
+  delegate_to: localhost
+  with_items: "{{ f5_routes_list }}"
+  when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
+  notify: Save config
+  tags: f5_routes

@@ -8,7 +8,7 @@
   tags: f5_iapps
   when:
     - (item.state | default('present')) == 'present'
-    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
+    - ( f5_partial_deploy is not defined ) or ( item.name|default(item.path) in f5_partial_deploy )
 
 - name: (un)Deploy iApp services based on templates
   bigip_iapp_service:

@@ -1,12 +1,15 @@
 Role Name
 =========
 
-A brief description of the role goes here.
-
-Requirements
-------------
+Ansible role, which makes managing F5 boxes (physical/virtual) little bit less painful, by adding some logic to existing ansible [F5 modules](https://docs.ansible.com/ansible/latest/modules/list_of_network_modules.html#f5)
 
 # How to make it work
+
+## Docker version (recommended)
+Extra GitHub repository `VeselaHouba/f5-docker` with docker wrapper has been created to ease your pain. Check [this URL](https://github.com/VeselaHouba/f5-docker) and then come back for detailed explanation of how to define your variables.
+
+
+## Virtualenv version (deprecated)
 If you don't want to mess with your default env, install everything in virtualenv. It might be good idea to actually wrap everything in docker.
 
 ```
@@ -23,6 +26,7 @@ Next time you just need to activate it again
 source ansible-dev/bin/activate
 ```
 
+# Variables and files explained
 
 ## Role Variables
 Check default values in `defaults/main.yml`. This project is currently under heavy development, so documentation is not maintained. It will be filled once the project changes settle down.

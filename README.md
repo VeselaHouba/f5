@@ -50,7 +50,8 @@ Following is example of iApp to periodically update CRL from public site.
 
 ```yaml
 f5_iApps_templates:
-  - path: ../files/iApps/automated_crl_update.tmpl
+  - name: automated_crl_update
+    path: ../files/iApps/automated_crl_update.tmpl
     state: present
 
 f5_iApps_services:
@@ -128,6 +129,8 @@ f5_partial_deploy:
 ansible-playbook playbooks/deploy.yml -e @f5_partial_deploy.yml
 ```
 
+# Changelog
+**2020-04-08** : **Breaking change** - iApp template definition now has to state `name` variable. (Added due to partial deploy). Variable is not used in deploy.
 
 License
 -------

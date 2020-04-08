@@ -6,7 +6,9 @@
   with_items: "{{ f5_iApps_templates }}"
   delegate_to: localhost
   tags: f5_iapps
-  when: (item.state | default('present')) == 'present'
+  when:
+    - (item.state | default('present')) == 'present'
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
 
 - name: (un)Deploy iApp services based on templates
   bigip_iapp_service:
@@ -16,6 +18,8 @@
     state: "{{ item.state | default('present') }}"
     provider: "{{ f5_provider }}"
   with_items: "{{ f5_iApps_services }}"
+  when:
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   delegate_to: localhost
   tags: f5_iapps
 
@@ -25,6 +29,8 @@
     provider: "{{ f5_provider }}"
     state: "{{ item.state | default('present') }}"
   with_items: "{{ f5_iApps_templates }}"
-  when: (item.state | default('present')) == 'absent'
+  when:
+    - (item.state | default('present')) == 'absent'
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   delegate_to: localhost
   tags: f5_iapps

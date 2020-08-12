@@ -1,5 +1,5 @@
 ---
-- name: Deploy iRules
+- name: Manage iRules
   bigip_irule:
     provider: "{{ f5_provider }}"
     module: ltm
@@ -11,4 +11,6 @@
   when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   notify: Save config
   delegate_to: localhost
+  loop_control:
+    label: "{{ item.name }} | {{ item.state|default('present') }}"
   tags: f5_irules

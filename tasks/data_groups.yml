@@ -1,5 +1,5 @@
 ---
-- name: Deploy data groups
+- name: Manage data groups
   bigip_data_group:
     provider: "{{ f5_provider }}"
     name: "{{ item.name }}"
@@ -7,10 +7,13 @@
     records: "{{ item.records|default(omit) }}"
     type: "{{ item.type|default(omit) }}"
     internal: "{{ item.internal | default(false) }}"
+    state: "{{ item.state|default('present') }}"
   with_items: "{{ f5_data_group_list }}"
   when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   notify: Save config
   delegate_to: localhost
+  loop_control:
+    label: "{{ item.name }} | {{ item.state|default('present') }}"
   tags:
     - f5_data-groups
     - f5_irules

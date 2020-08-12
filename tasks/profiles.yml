@@ -15,24 +15,10 @@
     profile_type: "{{ profile_merged.type }}"
   tags: f5_profiles
 
-# Loop through whole array and recreate new one without specific key
 - name: Remove type from profile
   set_fact:
-    profile_cleaned:
-      "{{ profile_cleaned | default({}) |
-      combine({dictitem.key: dictitem.value}) }}"
-  when: dictitem.key not in ['type']
-  with_dict: "{{ profile_merged }}"
+    profile_cleaned: "{{ profile_merged | dict2items | rejectattr('key','search','type') | list | items2dict }}"
   tags: f5_profiles
-  loop_control:
-    loop_var: dictitem
-  # hide passwords
-  no_log: true
-
-# - name: Debug - remove after testing
-#   debug:
-#     var: profile_cleaned
-#   tags: f5_profiles
 
 - name: Deploy http profiles
   bigip_profile_http: "{{ profile_cleaned }}"

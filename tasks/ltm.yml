@@ -1,5 +1,5 @@
 ---
-- name: Create Monitors
+- name: Manage HTTP Monitors
   bigip_monitor_http:
     provider: "{{ f5_provider }}"
     name: "{{ item.name }}"
@@ -17,8 +17,10 @@
   when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   notify: Save config
   tags: f5_ltm
+  loop_control:
+    label: "{{ item.name }} | {{ item.state|default('present') }}"
 
-- name: Create pools
+- name: Manage pools
   bigip_pool:
     provider: "{{ f5_provider }}"
     name: "{{ item.name }}"
@@ -32,8 +34,10 @@
   when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   notify: Save config
   tags: f5_ltm
+  loop_control:
+    label: "{{ item.name }} | {{ item.state|default('present') }}"
 
-- name: Add pool members
+- name: Manage pool members
   bigip_pool_member:
     provider: "{{ f5_provider }}"
     pool: "{{ item.pool }}"
@@ -48,8 +52,10 @@
   when: ( f5_partial_deploy is not defined ) or ( item.pool in f5_partial_deploy )
   notify: Save config
   tags: f5_ltm
+  loop_control:
+    label: "{{ item.name|default(item.host) }} | {{ item.state|default('present') }}"
 
-- name: Add virtual servers
+- name: Manage virtual servers
   bigip_virtual_server:
     provider: "{{ f5_provider }}"
     name: "{{ item.name }}"
@@ -73,3 +79,5 @@
   delegate_to: localhost
   notify: Save config
   tags: f5_ltm
+  loop_control:
+    label: "{{ item.name }} | {{ item.state|default('present') }}"

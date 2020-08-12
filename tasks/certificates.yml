@@ -1,5 +1,5 @@
 ---
-- name: "Import PEM certificate {{ cert.name }}"
+- name: "Manage PEM certificate {{ cert.name }}"
   bigip_ssl_certificate:
     provider: "{{ f5_provider }}"
     name: "{{ cert.name }}"
@@ -9,7 +9,7 @@
   when: cert.certfile is defined
   tags: f5_certificates
 
-- name: "Import key for {{ cert.name }}"
+- name: "Manage key for {{ cert.name }}"
   bigip_ssl_key:
     provider: "{{ f5_provider }}"
     name: "{{ cert.name }}"

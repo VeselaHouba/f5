@@ -53,7 +53,7 @@
   notify: Save config
   tags: f5_ltm
   loop_control:
-    label: "{{ item.name|default(item.host) }} | {{ item.state|default('present') }}"
+    label: "{{ item.name|default(item.host) }}->{{ item.pool }} | {{ item.state|default('present') }}"
 
 - name: Manage virtual servers
   bigip_virtual_server:

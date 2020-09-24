@@ -17,35 +17,3 @@
   notify: Save config
   delegate_to: localhost
   tags: f5_asm
-
-- name: Create LTM policy for ASM policy {{ policy.name }}
-  bigip_policy:
-    provider: "{{ f5_provider }}"
-    name: "asm_l7_policy_{{ policy.name }}"
-    state: present
-  notify: Save config
-  delegate_to: localhost
-  tags: f5_asm
-
-- name: Create default rules in LTM policy asm_l7_policy_{{ policy.name }}
-  bigip_policy_rule:
-    provider: "{{ f5_provider }}"
-    name: default
-    policy: "asm_l7_policy_{{ policy.name }}"
-    conditions:
-      - type: all_traffic
-    actions:
-      - type: enable
-        asm_policy: "{{ policy.name }}"
-  notify: Save config
-  delegate_to: localhost
-  tags: f5_asm
-
-- name: Publish LTM policy for ASM policy {{ policy.name }}
-  bigip_policy:
-    provider: "{{ f5_provider }}"
-    name: "asm_l7_policy_{{ policy.name }}"
-    state: present
-  notify: Save config
-  delegate_to: localhost
-  tags: f5_asm

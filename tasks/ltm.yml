@@ -1,4 +1,18 @@
 ---
+- name: Undeploy virtual servers if needed
+  include_tasks: ltm_vs_undeploy.yml
+  vars:
+    virtual_server: "{{ item }}"
+  with_items: "{{ f5_virtual_servers }}"
+  loop_control:
+    label: "{{ virtual_server.name }} | {{ virtual_server.state|default('present') }}"
+  tags:
+    - f5_ltm
+    - f5_asm
+  when:
+    - ( f5_partial_deploy is not defined ) or ( virtual_server.name in f5_partial_deploy )
+    - virtual_server.state | default('present') == 'absent'
+
 - name: Manage HTTP Monitors
   bigip_monitor_http:
     provider: "{{ f5_provider }}"
@@ -55,29 +69,16 @@
   loop_control:
     label: "{{ item.name|default(item.host) }}->{{ item.pool }} | {{ item.state|default('present') }}"
 
-- name: Manage virtual servers
-  bigip_virtual_server:
-    provider: "{{ f5_provider }}"
-    name: "{{ item.name }}"
-    type: "{{ item.type | default(omit) }}"
-    destination: "{{ item.destination | default(omit) }}"
-    port: "{{ item.port | default(omit) }}"
-    pool: "{{ item.pool | default('') }}"
-    snat: "{{ item.snat | default('Automap') }}"
-    description: "{{ item.description | default (ansible_managed) }}"
-    profiles: "{{ item.profiles | default([]) }}"
-    policies: "{{ item.policies | default(omit) }}"
-    enabled_vlans: "{{ item.enabled_vlans | default('all') }}"
-    state: "{{ item.state | default('present') }}"
-    partition: "{{ item.partition | default(omit) }}"
-    irules: "{{ item.irules | default(omit) }}"
-    default_persistence_profile: "{{ item.default_persistence_profile|default(omit) }}"
-    fallback_persistence_profile: "{{ item.fallback_persistence_profile|default(omit) }}"
-    security_log_profiles: "{{ item.security_log_profiles | default(omit) }}"
+- name: Deploy virtual servers
+  include_tasks: ltm_vs_deploy.yml
+  vars:
+    virtual_server: "{{ item }}"
   with_items: "{{ f5_virtual_servers }}"
-  when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
-  delegate_to: localhost
-  notify: Save config
-  tags: f5_ltm
   loop_control:
-    label: "{{ item.name }} | {{ item.state|default('present') }}"
+    label: "{{ virtual_server.name }} | {{ virtual_server.state|default('present') }}"
+  tags:
+    - f5_ltm
+    - f5_asm
+  when:
+    - ( f5_partial_deploy is not defined ) or ( virtual_server.name in f5_partial_deploy )
+    - virtual_server.state | default('present') == 'present'

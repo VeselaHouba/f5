@@ -1,0 +1,26 @@
+---
+- name: Set name of LTM policy
+  set_fact:
+    asm_ltm_policy: "ans_asm_policy-{{ virtual_server.name }}"
+
+- name: Destroy virtual server {{ virtual_server.name }}
+  bigip_virtual_server:
+    provider: "{{ f5_provider }}"
+    name: "{{ virtual_server.name }}"
+    state: absent
+  delegate_to: localhost
+  notify: Save config
+  tags: f5_ltm
+
+- name: Destroy LTM policy for ASM policy {{ virtual_server.asm_policy }}
+  bigip_policy:
+    provider: "{{ f5_provider }}"
+    name: "{{ asm_ltm_policy }}"
+    state: absent
+  notify: Save config
+  delegate_to: localhost
+  when:
+    - virtual_server.asm_policy is defined
+  tags:
+    - f5_asm
+    - f5_ltm

@@ -1,0 +1,62 @@
+---
+- block:
+    - name: Set name of LTM policy
+      set_fact:
+        asm_ltm_policy: "ans_asm_policy-{{ virtual_server.name }}"
+
+    - name: Create LTM policy for ASM policy {{ virtual_server.asm_policy }}
+      bigip_policy:
+        provider: "{{ f5_provider }}"
+        name: "{{ asm_ltm_policy }}"
+        state: present
+      notify: Save config
+      delegate_to: localhost
+
+    - name: Create default rules in LTM policy ans_asm_policy-{{ virtual_server.asm_policy }}
+      bigip_policy_rule:
+        provider: "{{ f5_provider }}"
+        name: default
+        policy: "{{ asm_ltm_policy }}"
+        conditions:
+          - type: all_traffic
+        actions:
+          - type: enable
+            asm_policy: "{{ virtual_server.asm_policy }}"
+      notify: Save config
+      delegate_to: localhost
+
+    - name: Publish LTM policy for ASM policy {{ virtual_server.asm_policy }}
+      bigip_policy:
+        provider: "{{ f5_provider }}"
+        name: "{{ asm_ltm_policy }}"
+        state: present
+      notify: Save config
+      delegate_to: localhost
+  when:
+    - virtual_server.asm_policy is defined
+  tags:
+    - f5_asm
+    - f5_ltm
+
+- name: Deploy virtual server {{ virtual_server.name }}
+  bigip_virtual_server:
+    provider: "{{ f5_provider }}"
+    name: "{{ virtual_server.name }}"
+    type: "{{ virtual_server.type | default(omit) }}"
+    destination: "{{ virtual_server.destination | default(omit) }}"
+    port: "{{ virtual_server.port | default(omit) }}"
+    pool: "{{ virtual_server.pool | default('') }}"
+    snat: "{{ virtual_server.snat | default('Automap') }}"
+    description: "{{ virtual_server.description | default (ansible_managed) }}"
+    profiles: "{{ virtual_server.profiles | default([]) }}"
+    policies: "{{ virtual_server.policies|default([]) + [asm_ltm_policy|default()] }}"
+    enabled_vlans: "{{ virtual_server.enabled_vlans | default('all') }}"
+    state: "{{ virtual_server.state | default('present') }}"
+    partition: "{{ virtual_server.partition | default(omit) }}"
+    irules: "{{ virtual_server.irules | default(omit) }}"
+    default_persistence_profile: "{{ virtual_server.default_persistence_profile|default(omit) }}"
+    fallback_persistence_profile: "{{ virtual_server.fallback_persistence_profile|default(omit) }}"
+    security_log_profiles: "{{ virtual_server.security_log_profiles | default(omit) }}"
+  delegate_to: localhost
+  notify: Save config
+  tags: f5_ltm

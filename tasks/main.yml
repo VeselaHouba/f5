@@ -83,7 +83,9 @@
   when: ( (f5_pools is defined) and (f5_pools | length > 0) )
     or ( (f5_pool_members is defined) and (f5_pool_members | length > 0) )
     or ( (f5_virtual_servers is defined) and (f5_virtual_servers | length > 0) )
-  tags: f5_ltm
+  tags:
+    - f5_ltm
+    - f5_asm
 
 - name: Deploy iApps
   include_tasks: iApps.yml

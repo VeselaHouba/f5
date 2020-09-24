@@ -1,5 +1,7 @@
 # f5
 
+[![GitHub Super-Linter](https://github.com/VeselaHouba/f5-ansible/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+
 Ansible role, which makes managing F5 boxes (physical/virtual) little bit less painful, by adding some logic to existing ansible [F5 modules](https://docs.ansible.com/ansible/latest/modules/list_of_network_modules.html#f5)
 
 ## How to make it work

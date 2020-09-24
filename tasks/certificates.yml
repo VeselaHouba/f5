@@ -1,6 +1,7 @@
 ---
 - name: "Manage PEM certificate {{ cert.name }}"
   bigip_ssl_certificate:
+    partition: "{{ item.partition | default(omit) }}"
     provider: "{{ f5_provider }}"
     name: "{{ cert.name }}"
     content: "{{ lookup('file', cert.certfile) }}"
@@ -11,6 +12,7 @@
 
 - name: "Manage key for {{ cert.name }}"
   bigip_ssl_key:
+    partition: "{{ item.partition | default(omit) }}"
     provider: "{{ f5_provider }}"
     name: "{{ cert.name }}"
     content: "{{ lookup('file', cert.keyfile) }}"

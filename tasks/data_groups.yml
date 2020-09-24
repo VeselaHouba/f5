@@ -1,6 +1,7 @@
 ---
 - name: Manage data groups
   bigip_data_group:
+    partition: "{{ item.partition | default(omit) }}"
     provider: "{{ f5_provider }}"
     name: "{{ item.name }}"
     records_src: "{{ item.file|default(omit) }}"

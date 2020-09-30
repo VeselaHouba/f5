@@ -134,10 +134,6 @@ f5_partial_deploy:
 ansible-playbook playbooks/deploy.yml -e @f5_partial_deploy.yml
 ```
 
-## Changelog
-- **2020-09-24** : **Breaking change** - ASM LTM policy is now created for each virtual server and new variable `asm_policy` is introduced. You can still use `policies` for custom definition to keep backward compatibility, but auto-generation of 1 LTM policy for 1 ASM policy is disabled.
-- **2020-04-08** : **Breaking change** - iApp template definition now has to state `name` variable. (Added due to partial deploy). Variable is not used in deploy.
-
 ## License
 
 BSD

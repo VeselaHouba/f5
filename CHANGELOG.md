@@ -3,7 +3,7 @@
 Please document all changes here.
 Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 
-## [Unreleased]
+## [2.0.4]
 ### Changed
 - Found and fixed bug introduced in last version - variable from previous iteration was used if not explicitly reset.
 

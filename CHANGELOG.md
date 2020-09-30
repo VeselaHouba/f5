@@ -3,7 +3,7 @@
 Please document all changes here.
 Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 
-## [Unreleased]
+## [2.0.3] - 2020-09-30
 - Added option to define partitions for ASM policies
 - Fixed bug with re-creating ASM policy instead of deactivating
 - LTM policies are auto-generated and they inherit partition from Virtual Server

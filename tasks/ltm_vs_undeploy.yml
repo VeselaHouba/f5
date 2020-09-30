@@ -7,6 +7,7 @@
   bigip_virtual_server:
     provider: "{{ f5_provider }}"
     name: "{{ virtual_server.name }}"
+    partition: "{{ virtual_server.partition | default(omit) }}"
     state: absent
   delegate_to: localhost
   notify: Save config
@@ -16,6 +17,7 @@
   bigip_policy:
     provider: "{{ f5_provider }}"
     name: "{{ asm_ltm_policy }}"
+    partition: "{{ virtual_server.partition | default(omit) }}"
     state: absent
   notify: Save config
   delegate_to: localhost

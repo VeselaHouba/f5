@@ -8,6 +8,7 @@
       bigip_policy:
         provider: "{{ f5_provider }}"
         name: "{{ asm_ltm_policy }}"
+        partition: "{{ virtual_server.partition | default(omit) }}"
         state: present
       notify: Save config
       delegate_to: localhost
@@ -17,6 +18,7 @@
         provider: "{{ f5_provider }}"
         name: default
         policy: "{{ asm_ltm_policy }}"
+        partition: "{{ virtual_server.partition | default(omit) }}"
         conditions:
           - type: all_traffic
         actions:
@@ -29,6 +31,7 @@
       bigip_policy:
         provider: "{{ f5_provider }}"
         name: "{{ asm_ltm_policy }}"
+        partition: "{{ virtual_server.partition | default(omit) }}"
         state: present
       notify: Save config
       delegate_to: localhost

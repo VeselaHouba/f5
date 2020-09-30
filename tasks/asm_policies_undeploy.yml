@@ -1,17 +1,9 @@
 ---
-- name: Deactivate ASM policy {{ policy.name }}
-  bigip_asm_policy_manage:
-    provider: "{{ f5_provider }}"
-    name: "{{ policy.name }}"
-    active: false
-  notify: Save config
-  delegate_to: localhost
-  tags: f5_asm
-
 - name: Remove ASM policy {{ policy.name }}
   bigip_asm_policy_manage:
     provider: "{{ f5_provider }}"
     name: "{{ policy.name }}"
+    partition: "{{ policy.partition | default(omit) }}"
     state: absent
   notify: Save config
   delegate_to: localhost

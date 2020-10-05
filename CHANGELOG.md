@@ -3,7 +3,7 @@
 Please document all changes here.
 Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 
-## [Unreleased]
+## [2.0.5]
 ### Changed
 - Split certificates deploy and undeploy, so it can be run in single play
 ### Added

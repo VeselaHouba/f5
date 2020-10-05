@@ -34,7 +34,7 @@
   tags: f5_profiles
   when: profile_type == 'http_compression'
 
-- name: Deploy client ssl profiles
+- name: Deploy client ssl profile {{ profile_cleaned.name }}
   bigip_profile_client_ssl: "{{ profile_cleaned }}"
   notify: Save config
   delegate_to: localhost

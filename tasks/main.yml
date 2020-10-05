@@ -57,12 +57,13 @@
   tags: f5_asm
 
 - name: Deploy cetificates
-  include_tasks: certificates.yml
+  include_tasks: certificates_deploy.yml
   vars:
     cert: "{{ item }}"
   with_items: "{{ f5_certificates_list }}"
   when:
     - item.name is defined
+    - item.state|default('present') == 'present'
     - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   tags: f5_certificates
   no_log: true
@@ -103,3 +104,15 @@
     - item.state | default('present') == 'absent'
     - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   tags: f5_asm
+
+- name: Undeploy cetificates
+  include_tasks: certificates_undeploy.yml
+  vars:
+    cert: "{{ item }}"
+  with_items: "{{ f5_certificates_list }}"
+  when:
+    - item.name is defined
+    - item.state|default('present') == 'absent'
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
+  tags: f5_certificates
+  no_log: true

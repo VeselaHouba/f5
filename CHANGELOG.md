@@ -3,6 +3,10 @@
 Please document all changes here.
 Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 
+## [Unreleased]
+### Added
+- f5_pools - Option to define priority_group_activation number
+
 ## [2.0.5]
 ### Changed
 - Split certificates deploy and undeploy, so it can be run in single play

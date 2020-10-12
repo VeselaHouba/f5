@@ -43,6 +43,7 @@
     monitors: "{{ item.monitors | default(omit) }}"
     state: "{{ item.state | default('present') }}"
     partition: "{{ item.partition | default(omit) }}"
+    priority_group_activation: "{{ item.priority_group_activation | default(omit) }}"
   delegate_to: localhost
   with_items: "{{ f5_pools }}"
   when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )

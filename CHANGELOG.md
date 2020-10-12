@@ -3,7 +3,7 @@
 Please document all changes here.
 Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 
-## [Unreleased]
+## [2.0.6]
 ### Added
 - f5_pools - Option to define priority_group_activation number
 

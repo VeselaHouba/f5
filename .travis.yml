@@ -1,0 +1,8 @@
+---
+if: branch = master
+
+language: python
+
+script:
+  - pip3 install ansible
+  - ./ci/galaxy-push.sh

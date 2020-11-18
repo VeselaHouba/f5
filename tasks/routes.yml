@@ -2,8 +2,8 @@
 - name: Manage routes
   bigip_static_route:
     name: "{{ item.name }}"
-    destination : "{{ item.destination }}"
-    netmask : "{{ item.netmask }}"
+    destination: "{{ item.destination }}"
+    netmask: "{{ item.netmask }}"
     gateway_address: "{{ item.gateway }}"
     partition: "{{ item.partition | default(omit) }}"
     state: "{{ item.state | default('present') }}"

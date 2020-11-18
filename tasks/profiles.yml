@@ -54,3 +54,10 @@
   delegate_to: localhost
   tags: f5_profiles
   when: profile_type == 'persistence_cookie'
+
+- name: Deploy universal persistence profile
+  bigip_profile_persistence_universal: "{{ profile_cleaned }}"
+  notify: Save config
+  delegate_to: localhost
+  tags: f5_profiles
+  when: profile_type == 'persistence_universal'

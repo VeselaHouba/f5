@@ -1,8 +1,18 @@
 ---
-if: branch = master
-
 language: python
-
+notifications:
+  email:
+    on_success: change
+    on_failure: never
+install:
+  - pip3 install ansible ansible-lint
+  - ansible-galaxy collection install https://f5-ansible.s3.amazonaws.com/collections/f5networks-f5_modules-devel.tar.gz
 script:
-  - pip3 install ansible
-  - ./ci/galaxy-push.sh
+  - ansible-lint . -x 106
+deploy:
+  - provider: script
+    on:
+      tags: true
+      branch: master
+    script:
+      - ./ci/galaxy-push.sh

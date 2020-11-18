@@ -6,6 +6,13 @@ Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 ## [Unreleased]
 ### Fixed
 - tasks/routes.yml - Satisfied linter
+- linter findings in meta/main.yml
+
+### Changed
+- bigip_profile_persistence_universal - Switched to new ansible full-module path
+
+### Added
+- Added ansible-linter to travis
 
 ## [2.0.7]
 ### Added

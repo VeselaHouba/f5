@@ -5,6 +5,11 @@ galaxy_info:
   company: m-cloud.cz
   min_ansible_version: 2.8
   galaxy_tags: []
+  license: "MIT"
+  platforms:
+    - name: GenericLinux
+      versions:
+        - any
 dependencies: []
 collections:
   - f5networks.f5_modules

@@ -1,0 +1,39 @@
+---
+name: CI
+on:
+  push:
+    branches-ignore:
+      - 'master'
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  # https://github.com/github/super-linter/blob/master/README.md
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+
+      - name: Lint Code with super-linter
+        uses: github/super-linter@v3
+        env:
+          ANSIBLE_DIRECTORY: /
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install yamllint ansible-base ansible-lint
+
+      - name: Install dependent collection
+        run: ansible-galaxy collection install https://f5-ansible.s3.amazonaws.com/collections/f5networks-f5_modules-devel.tar.gz
+
+      - name: Lint code manually.
+        run: |
+          yamllint .
+          ansible-lint

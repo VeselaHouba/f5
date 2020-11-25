@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   author: Jan Michalek ( michalek@m-cloud.cz )
+  role_name: f5_ansible
   description: Role for managing F5 boxes
   company: m-cloud.cz
   min_ansible_version: 2.8

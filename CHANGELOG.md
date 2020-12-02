@@ -4,6 +4,8 @@ Please document all changes here.
 Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 
 ## [Unreleased]
+### Changed
+- Switched linter to drone.io
 
 ### [2.0.10] - 2020-12-02
 ### Added

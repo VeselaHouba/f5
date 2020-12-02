@@ -1,6 +1,8 @@
 # f5
 
 [![CI](https://github.com/VeselaHouba/f5-ansible/workflows/CI/badge.svg)](https://github.com/VeselaHouba/f5-ansible/actions?query=workflow%3ACI)
+[![CI](https://drone.m-cloud.cz/api/badges/VeselaHouba/f5-ansible/status.svg)](https://drone.m-cloud.cz/VeselaHouba/f5-ansible)
+
 
 Ansible role, which makes managing F5 boxes (physical/virtual) little bit less painful, by adding some logic to existing ansible [F5 modules](https://docs.ansible.com/ansible/latest/modules/list_of_network_modules.html#f5)
 

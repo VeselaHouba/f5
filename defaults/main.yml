@@ -19,3 +19,4 @@ f5_users: {}
 f5_partitions: {}
 f5_iApps_templates: {}
 f5_iApps_services: {}
+f5_routes_list: {}

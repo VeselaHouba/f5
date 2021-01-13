@@ -7,6 +7,9 @@ Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 ### Changed
 - Switched linter to drone.io
 
+### Added
+- missing default value for `f5_routes_list`
+
 ### [2.0.10] - 2020-12-02
 ### Added
 - Python implementation of rewrite profile (not provided by official f5 modules)

@@ -3,7 +3,7 @@
 Please document all changes here.
 Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 
-## [Unreleased]
+## [2.0.11] - 2021-02-17
 ### Changed
 - Switched linter to drone.io
 - Fixed: Added missing tags to LTM deploy
@@ -11,7 +11,7 @@ Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 ### Added
 - missing default value for `f5_routes_list`
 
-### [2.0.10] - 2020-12-02
+## [2.0.10] - 2020-12-02
 ### Added
 - Python implementation of rewrite profile (not provided by official f5 modules)
 

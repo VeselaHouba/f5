@@ -6,6 +6,7 @@ Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 ## [Unreleased]
 ### Changed
 - Switched linter to drone.io
+- Fixed: Added missing tags to LTM deploy
 
 ### Added
 - missing default value for `f5_routes_list`

@@ -2,6 +2,9 @@
 - name: Reset asm_ltm_policy variable
   set_fact:
     asm_ltm_policy: ""
+  tags:
+    - f5_asm
+    - f5_ltm
 
 - block:
     - name: Set name of LTM policy

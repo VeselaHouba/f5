@@ -16,6 +16,7 @@
     name: "{{ policy.name }}"
     active: "{{ policy.active | default(false) }}"
     partition: "{{ policy.partition | default(omit) }}"
+    apply: true
   notify: Save config
   delegate_to: localhost
   tags: f5_asm

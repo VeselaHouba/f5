@@ -48,7 +48,9 @@
   with_items: "{{ f5_pools }}"
   when: ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
   notify: Save config
-  tags: f5_ltm
+  tags:
+    - f5_ltm
+    - f5_ltm_pools
   loop_control:
     label: "{{ item.name }} | {{ item.state|default('present') }}"
 

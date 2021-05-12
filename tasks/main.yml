@@ -86,6 +86,7 @@
     or ( (f5_virtual_servers is defined) and (f5_virtual_servers | length > 0) )
   tags:
     - f5_ltm
+    - f5_ltm_pools
     - f5_asm
 
 - name: Deploy iApps

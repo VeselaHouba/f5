@@ -2,6 +2,13 @@
 
 Please document all changes here.
 Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
+## [2.1.0] - 2021-05-21
+### Added
+- Apply for applied ASM policy (supported on TMOS 14+)
+
+## [2.1.0] - 2021-05-21
+### Changed
+- Updated linter setup to comply with updated superlinter
 
 ## [2.0.12] - 2021-05-12
 ### Added

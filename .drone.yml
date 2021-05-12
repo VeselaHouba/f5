@@ -2,15 +2,16 @@
 kind: pipeline
 name: lint
 workspace:
-  path: /opt/ansible/roles/f5
+  path: /opt/ansible/roles/veselahouba.f5_ansible
 
 steps:
   - name: Super Linter
     image: github/super-linter:latest
     environment:
       RUN_LOCAL: "true"
-      DEFAULT_WORKSPACE: /opt/ansible/roles/f5
-      ANSIBLE_DIRECTORY: /
+      DEFAULT_WORKSPACE: /opt/ansible/roles/veselahouba.f5_ansible
+      # Using own ansible check
+      VALIDATE_ANSIBLE: false
       # Sorry pal, maybe one day
       VALIDATE_PYTHON_BLACK: false
       VALIDATE_PYTHON_PYLINT: false

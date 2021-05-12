@@ -3,6 +3,13 @@
 Please document all changes here.
 Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 
+## [2.0.12] - 2021-05-12
+### Added
+- `f5_ltm_pools` tag to deploy only pools
+
+### Changed
+- Fixes in linters
+
 ## [2.0.11] - 2021-02-17
 ### Changed
 - Switched linter to drone.io

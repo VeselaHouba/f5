@@ -41,7 +41,7 @@ from ansible.module_utils.jmcloud.network.f5.utils import (
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
-class F5BaseClient(with_metaclass(ABCMeta)):
+class F5BaseClient(with_metaclass(ABCMeta)): # type: ignore
     """Base class for all F5 clients
 
     It provides an interface to a single F5 system.
@@ -66,7 +66,7 @@ class F5BaseClient(with_metaclass(ABCMeta)):
         pass
 
 
-class F5BaseObject(with_metaclass(ABCMeta)):
+class F5BaseObject(with_metaclass(ABCMeta)): # type: ignore
     """Base abstract class for all F5 objects
 
     It represents an F5 resource configurable by Ansible.

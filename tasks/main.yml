@@ -78,8 +78,10 @@
   when:
     - item.name is defined
     - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
+    - item.state|default('present') == 'present'
   tags: f5_profiles
-  no_log: true
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: Configure pools, members, virtual servers
   include_tasks: ltm.yml
@@ -99,6 +101,19 @@
     - f5_iRules_list is defined
     - f5_iRules_list | length > 0
   tags: f5_irules
+
+- name: UnDeploy profiles
+  include_tasks: profiles.yml
+  vars:
+    profile: "{{ item }}"
+  with_items: "{{ f5_profiles_list }}"
+  when:
+    - item.name is defined
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
+    - item.state|default('present') == 'absent'
+  tags: f5_profiles
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: Deploy iApps
   include_tasks: iApps.yml

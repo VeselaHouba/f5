@@ -10,7 +10,7 @@
   with_items: "{{ f5_iRules_list }}"
   when:
     - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
-    - item.state == irules_state
+    - item.state | default('present') == irules_state
   notify: Save config
   delegate_to: localhost
   loop_control:

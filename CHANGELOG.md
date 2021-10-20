@@ -34,7 +34,7 @@ Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
 
 ## [2.0.9]
 ### Changed
-- Switched from travis to github actions
+- Switched from travis to GitHub actions
 
 ## [2.0.8]
 ### Fixed

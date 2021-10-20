@@ -42,7 +42,7 @@ f5_iRules_list:
   - { name: irule_ib-block_ip, file: ../files/iRules/irule_ib-block_ip.tcl}
 ```
 
-Or use one of pre-defined iRules inside this role `files/iRules/` and reference only by it's name
+Or use one of predefined iRules inside this role `files/iRules/` and reference only by it's name
 
 ```yaml
 f5_iRules_list:
@@ -122,7 +122,7 @@ ansible-playbook playbooks/deploy.yml -e "f5_partial_deploy=my_virtual_server"
 ansible-playbook playbooks/deploy.yml -e "f5_partial_deploy=my_virtual_server,my_pool"
 ```
 
-You can also add your variables to file and load it from command line
+You can also add your variables to file and load it from command-line
 ```bash
 $ cat f5_partial_deploy.yml
 

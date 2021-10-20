@@ -66,7 +66,9 @@
     partition: "{{ item.partition | default(omit) }}"
   delegate_to: localhost
   with_items: "{{ f5_pool_members }}"
-  when: ( f5_partial_deploy is not defined ) or ( item.pool in f5_partial_deploy )
+  when:
+    - ( f5_partial_deploy is not defined ) or ( item.pool in f5_partial_deploy )
+    - item.state | default('present') == 'present'
   notify: Save config
   tags: f5_ltm
   loop_control:

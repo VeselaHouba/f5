@@ -2,6 +2,9 @@
 
 Please document all changes here.
 Follow rules from [Keep a Changelog](https://keepachangelog.com/en/0.3.0/)
+## [2.1.4] - 2021-10-20
+- Fix pool member behaviour during pool deletion
+
 ## [2.1.0] - 2021-05-21
 ### Added
 - Apply for applied ASM policy (supported on TMOS 14+)

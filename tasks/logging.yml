@@ -1,0 +1,59 @@
+---
+- name: Manage log destinations
+  bigip_log_destination:
+    address: "{{ item.address|default(omit) }}"
+    description: "{{ item.description|default(omit) }}"
+    distribution: "{{ item.distribution|default(omit) }}"
+    forward_to: "{{ item.forward_to|default(omit) }}"
+    name: "{{ item.name }}"
+    partition: "{{ item.partition | default(omit) }}"
+    pool: "{{ item.pool|default(omit) }}"
+    port: "{{ item.port|default(omit) }}"
+    protocol: "{{ item.protocol|default(omit) }}"
+    provider: "{{ f5_provider }}"
+    state: "{{ item.state | default('present') }}"
+    syslog_format: "{{ item.syslog_format|default(omit) }}"
+    type: "{{ item.type }}"
+  with_items: "{{ f5_log_destinations }}"
+  when:
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
+  notify: Save config
+  delegate_to: localhost
+  loop_control:
+    label: "{{ item.name }} | {{ item.state|default('present') }}"
+  tags: f5_logging
+
+- name: Manage log publishers
+  bigip_log_publisher:
+    description: "{{ item.description|default(omit) }}"
+    destinations: "{{ item.destinations|default(omit) }}"
+    name: "{{ item.name }}"
+    partition: "{{ item.partition | default(omit) }}"
+    provider: "{{ f5_provider }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ f5_log_publishers }}"
+  when:
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
+  notify: Save config
+  delegate_to: localhost
+  loop_control:
+    label: "{{ item.name }} | {{ item.state|default('present') }}"
+  tags: f5_logging
+
+- name: Manage remote syslog servers
+  bigip_remote_syslog:
+    local_ip: "{{ item.local_ip|default(omit) }}"
+    name: "{{ item.name | default(omit) }}"
+    partition: "{{ item.partition | default(omit) }}"
+    provider: "{{ f5_provider }}"
+    remote_host: "{{ item.remote_host }}"
+    remote_port: "{{ item.remote_port | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ f5_remote_syslog_servers }}"
+  when:
+    - ( f5_partial_deploy is not defined ) or ( item.name in f5_partial_deploy )
+  notify: Save config
+  delegate_to: localhost
+  loop_control:
+    label: "{{ item.name }} | {{ item.state|default('present') }}"
+  tags: f5_logging

@@ -20,3 +20,6 @@ f5_partitions: {}
 f5_iApps_templates: {}
 f5_iApps_services: {}
 f5_routes_list: {}
+f5_log_destinations: {}
+f5_log_publishers: {}
+f5_remote_syslog_servers: {}

@@ -23,6 +23,13 @@
     - f5_routes_list | length > 0
   tags: f5_routes
 
+- name: Deploy logging config
+  include_tasks: logging.yml
+  when:
+    - (f5_log_destinations is defined) or (f5_log_publishers is defined) or (f5_remote_syslog_servers is defined)
+    - (f5_log_destinations | length > 0) or (f5_log_publishers | length > 0) or (f5_remote_syslog_servers | length > 0)
+  tags: f5_logging
+
 - name: Deploy data groups
   include_tasks: data_groups.yml
   when:

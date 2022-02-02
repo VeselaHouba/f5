@@ -6,7 +6,7 @@ workspace:
 
 steps:
   - name: Super Linter
-    image: github/super-linter:latest
+    image: github/super-linter:v4
     environment:
       RUN_LOCAL: "true"
       DEFAULT_WORKSPACE: /opt/ansible/roles/veselahouba.f5_ansible
@@ -14,6 +14,7 @@ steps:
       VALIDATE_ANSIBLE: false
       # Sorry pal, maybe one day
       VALIDATE_PYTHON_BLACK: false
+      VALIDATE_PYTHON_MYPY: false
       VALIDATE_PYTHON_PYLINT: false
       VALIDATE_PYTHON_FLAKE8: false
       VALIDATE_PYTHON_ISORT: false
